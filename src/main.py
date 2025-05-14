@@ -1,37 +1,12 @@
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
-from pydantic import BaseModel
-from typing import List
-
-class Food(BaseModel):
-    name: str
-    quantity: str
-    calories: int
-    protein: int
-    carbs: int
-    fat: int
-
-class Meal(BaseModel):
-    name: str
-    calories: int
-    protein: int
-    carbs: int
-    fat: int
-    foods: List[Food]
-
-class DailyDietPlan(BaseModel):
-    calories: int
-    protein: int
-    carbs: int
-    fat: int
-    meals: List[Meal]
+from models import DailyDietPlan
 
 if 'OPENAI_API_KEY' in os.environ:
     del os.environ['OPENAI_API_KEY']
 
 isLoaded = load_dotenv()
-
 
 if not isLoaded:
     raise ValueError("Failed to load environment variables")
@@ -45,8 +20,8 @@ completion = client.beta.chat.completions.parse(
     messages=[
         {"role": "system", "content": "You are nutritionists expert."},
         {"role": "user", "content": "Give me daily diet plan for 35 year old male. Total daily calories intake should ne 2300cal and protein intake should be minium 200g"}
-        ],
-        response_format=DailyDietPlan
+    ],
+    response_format=DailyDietPlan
 )
 
 daily_diet_plan = completion.choices[0].message.parsed

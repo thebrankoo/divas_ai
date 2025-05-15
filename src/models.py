@@ -1,5 +1,16 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Dict, Optional
+
+class MacroNutrient(BaseModel):
+    amount: float
+    unit: str
+
+class FoodDetails(BaseModel):
+    food_name: str
+    fdc_id: int
+    description: str
+    macros: Dict[str, MacroNutrient]
+    found: bool
 
 class Food(BaseModel):
     name: str

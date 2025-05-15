@@ -1,41 +1,18 @@
-# Python Project with OpenAI Integration
-
-A simple Python project that demonstrates integration with the OpenAI API.
+# DIVAS is an AI Agent for creating diet plan
 
 ## Setup
 
-1. Clone the repository
+1. Create `.env` file in root directory
+2. Add your OpenAI API key `OPENAI_API_KEY=your_api_key`
+3. Add your FoodData Central API key `FDC_API_KEY=your_api_key` (see [FoodData Central](https://fdc.nal.usda.gov/api-key-signup/))
 
-2. Install dependencies:
+## Usage
+1. Start venv
+2. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-
-3. Set up your OpenAI API key:
-   - Create a `.env` file in the root directory
-   - Add your OpenAI API key:
-     ```
-     OPENAI_API_KEY=your_openai_api_key_here
-     ```
-   - Alternatively, set it as an environment variable directly
-
-## Usage
-
-Run the main script:
+4. Run the main script:
 ```bash
 python src/main.py
 ```
-
-This will:
-1. Load environment variables from the `.env` file
-2. Check if the OpenAI API key is configured
-3. Send a sample prompt to OpenAI
-4. Display the response
-
-## OpenAI Module
-
-The project includes a simple OpenAI module with the following features:
-- `OpenAIClient`: A client for interacting with OpenAI APIs
-- Basic error handling
-- Environment variable support
-- Chat completion functionality 

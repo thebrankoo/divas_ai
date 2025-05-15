@@ -1,7 +1,4 @@
 import os
-import json
-import requests
-from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
 import fooddatacentral as fdc
 
@@ -10,7 +7,6 @@ load_dotenv()
 
 class NutritionSearch:
     """Tool for searching macronutrient information using the USDA FoodData Central API."""
-    
     tools = [
         {
             "type": "function",
@@ -45,15 +41,6 @@ class NutritionSearch:
             print(f"Error searching for food: {e}")
             return None
     
-    def get_nutrients(self, fdc_id: int):
-        """Get nutritional information for a specific food."""
-        try:
-            nutrients = fdc.nutrients(self.api_key, fdc_id=fdc_id)
-            print(f"@@@ Nutrients: {nutrients}")
-        except Exception as e:
-            print(f"Error getting nutrients: {e}")
-            return None
-    
     def get_food_details(self, food_name: str):
         """Search for and return detailed nutrition information for a food."""
         search_results = self.search_food(food_name, max_results=1)
@@ -64,7 +51,6 @@ class NutritionSearch:
         fdc_id = int(search_results.iloc[0]["fdcId"])
         food_nutrients = search_results.iloc[0]["foodNutrients"]
         
-        # Extract macronutrients of interest
         macros = {}
         
         for nutrient in food_nutrients:
@@ -100,11 +86,3 @@ class NutritionSearch:
             "macros": macros,
             "found": True
         }
-
-# Test code
-# if __name__ == "__main__":
-#     load_dotenv()
-#     search = NutritionSearch()
-#     result = search.get_food_details("large egg")
-#     print("\nDataFrame Info:")
-#     print(result)
